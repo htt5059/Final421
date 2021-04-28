@@ -17,16 +17,4 @@ public class Manager extends DeptEmployeeABS{
     public Manager(String name, Director d){
         this.name =name; director=d;
     }
-    @Override
-    public String getName() { return name;}
-
-    @Override
-    public String getTitle() { return title;}
-
-    public void addWork(Work w){workList.add(w);}
-    public void printWork(){
-        for(Work w: workList){
-            System.out.println(w.getWorkScript());
-        }
-    }
 }

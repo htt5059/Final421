@@ -88,7 +88,7 @@ public class Request extends JFrame{
         if (e.getActionCommand().equals(addOtherWorkButton.getText())){
             decorOrCreate();
             this.dispose();
-            Request newReq = new Request(mainFrame, work, frontDesk);
+            new Request(mainFrame, work, frontDesk);
         }
 
     }

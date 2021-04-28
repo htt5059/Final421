@@ -17,19 +17,22 @@ public class Main {
     private ObjectInputStream in;
     private Socket socket;
     private Object o;
+    private MyGUI gui;
     private ArrayList<ClientActionListener> clientActionListener = new ArrayList<>();
 
-    private void connect() throws IOException, ClassNotFoundException {
-        socket = new Socket("localhost", 5059);
-        in = new ObjectInputStream(socket.getInputStream());
-        out = new ObjectOutputStream(socket.getOutputStream());
-        o = in.readObject();
-    }
-
-    public Main() throws IOException, ClassNotFoundException {
-        connect();
+    public Main(MyGUI gui) throws IOException, ClassNotFoundException {
+        Socket socket = new Socket("localhost", 5059);
+        this.gui= gui;
         System.out.println("Client port is " + socket.getLocalPort());
+        out= new ObjectOutputStream(socket.getOutputStream());
+        in = new ObjectInputStream(socket.getInputStream());
         receiveObject();
+    }
+    public Main() throws IOException {
+        Socket socket = new Socket("localhost", 5059);
+        System.out.println("Client port is " + socket.getLocalPort());
+        out= new ObjectOutputStream(socket.getOutputStream());
+        in = new ObjectInputStream(socket.getInputStream());
     }
 
     void sendObject(Object w) throws IOException {
@@ -38,14 +41,15 @@ public class Main {
     void receiveObject() throws IOException, ClassNotFoundException {
         Object o;
         if((o=in.readObject())!=null) {
-            sendObject(o);
+            gui.updateWorkListFromSocket((Work) o);
         }
     }
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         JFrame frame = new MyGUI("MyGUI");
         frame.setSize(800,800);
         frame.setVisible(true);
-        new Main();
+
+        new Main((MyGUI)frame);
     }
 
     public void addSendingObjectListener(ClientActionListener listener){

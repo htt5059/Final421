@@ -120,10 +120,13 @@ public class MyGUI extends JFrame implements ClientActionListener {
         workList.remove(w);
         list4.setListData(workList);
     }
-    public void updateWorkList(Work w) throws IOException {
+    void updateWorkList(Work w) throws IOException {
+        main.sendObject(w);
+    }
+
+    void updateWorkListFromSocket(Work w){
         workList.add(w);
         list4.setListData(workList);
-        main.sendObject(w);
     }
 
     /*public static void main(String[] args) throws IOException, ClassNotFoundException {

@@ -11,7 +11,6 @@ public class ServerWorker extends Thread{
     private final Socket mySocket;
     private final Server server;
     private ObjectOutputStream out;
-    private ObjectInputStream in;
 
     public ServerWorker(Server server, Socket mySocket){
         this.mySocket= mySocket;
@@ -21,15 +20,16 @@ public class ServerWorker extends Thread{
     public void run(){
         try {
             handleClientSocket();
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    private void handleClientSocket() throws IOException, InterruptedException {
+    private void handleClientSocket() throws IOException {
         while(true){
             out = new ObjectOutputStream(mySocket.getOutputStream());
-            in = new ObjectInputStream(mySocket.getInputStream());
+            ObjectInputStream in = new ObjectInputStream(mySocket.getInputStream());
             try {
+                //while(in.ready()!=-1) => read is done
                 handleObject(in.readObject());
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
@@ -38,6 +38,7 @@ public class ServerWorker extends Thread{
     }
 
     private void handleObject(Object o) throws IOException {
+        if(o==null) return;
         System.out.println("Object recieved");
         List<ServerWorker> list = server.getWokerList();
         for(ServerWorker worker: list){
