@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Final421:jar2">
+    <output-path>$PROJECT_DIR$/out/artifacts/Final421_jar2</output-path>
+    <root id="archive" name="Final421.jar">
+      <element id="module-output" name="Final421" />
+      <element id="module-output" name="ServerMain" />
+      <element id="module-output" name="ClientSide" />
+    </root>
+  </artifact>
+</component>
