@@ -3,7 +3,6 @@ package Facility;
 import Company_People.Department_People.DeptPeopleABS;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class MeetingRoom implements Serializable {
     private int roomNumber;
@@ -22,21 +21,25 @@ public class MeetingRoom implements Serializable {
     }
     public void done(){
         isUsed=false;
-        user= null;
         MeetingRoomManager.getRoomManager().removeFromQ(this);
+        user.roomDone(this);
+        user= null;
     }
-    public int roomNum(){return roomNumber;}
+    public int getRoomNum(){return roomNumber;}
 
     public String toString(){
-        if (user==null)
-            return "Room Number: "+roomNumber;
-        else return "Room Number: "+roomNumber+"    "+user.toString();
+        return "Room Number: "+roomNumber;
     }
     public boolean scheduleBefore(MeetingRoom r){
         return isUsed;
     }
-    public String getUserInfo(){
-        return user.toString();
+    public String getRoomInfo(){
+        return "Room: "+roomNumber+"    "+user.toString();
     }
     public boolean IsUsed(){return isUsed;}
+    void setRoom(DeptPeopleABS user){
+        this.user=user;
+        isUsed=true;
+    }
+    DeptPeopleABS getUser(){return user;}
 }

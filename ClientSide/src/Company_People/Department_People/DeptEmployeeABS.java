@@ -2,5 +2,10 @@ package Company_People.Department_People;
 
 import Work.Work;
 
-public abstract class DeptEmployeeABS extends DeptPeopleABS{
+import java.io.Serializable;
+
+public abstract class DeptEmployeeABS extends DeptPeopleABS implements Serializable {
+    public DeptEmployeeABS(String name, String title) {
+        super(name, title);
+    }
 }

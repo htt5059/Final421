@@ -2,9 +2,10 @@ package Company_People.Department_People;
 
 import Work.Work;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Director extends DeptPeopleABS {
+public class Director extends DeptPeopleABS implements Serializable {
     private final String name;
     private final String title= "Department Director";
     private ArrayList<DeptEmployeeABS> employeeList = new ArrayList<>();
